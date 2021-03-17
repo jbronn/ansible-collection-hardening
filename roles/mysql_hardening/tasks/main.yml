@@ -21,6 +21,12 @@
   when: "not lookup('varnames', '^' + item.key + '$')"
   with_dict: '{{ os_vars }}'
 
+- name: check which mysql version is used
+  community.mysql.mysql_info:
+    filter: version
+    login_unix_socket: "{{ login_unix_socket | default(omit) }}"
+  register: mysql_version
+
 - include: configure.yml
   when: mysql_hardening_enabled | bool
   tags:
