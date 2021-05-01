@@ -1,11 +1,56 @@
 # Changelog
 
-## [7.3.1](https://github.com/dev-sec/ansible-collection-hardening/tree/7.3.1) (2021-03-16)
+## [7.5.1](https://github.com/dev-sec/ansible-collection-hardening/tree/7.5.1) (2021-04-09)
 
-[Full Changelog](https://github.com/dev-sec/ansible-collection-hardening/compare/7.3.0...7.3.1)
+[Full Changelog](https://github.com/dev-sec/ansible-collection-hardening/compare/7.5.0...7.5.1)
 
 **Merged pull requests:**
 
+- fixed a typo in comments [\#439](https://github.com/dev-sec/ansible-collection-hardening/pull/439) ([ssttehrani](https://github.com/ssttehrani))
+
+## [7.5.0](https://github.com/dev-sec/ansible-collection-hardening/tree/7.5.0) (2021-04-01)
+
+[Full Changelog](https://github.com/dev-sec/ansible-collection-hardening/compare/7.4.0...7.5.0)
+
+**Implemented enhancements:**
+
+- Not accepting source routing for IPv6. This was already done for IPv4. [\#424](https://github.com/dev-sec/ansible-collection-hardening/pull/424) ([joubbi](https://github.com/joubbi))
+
+**Fixed bugs:**
+
+- SSH kex sntrup4591761x25519-sha512@tinyssh.org replaced [\#433](https://github.com/dev-sec/ansible-collection-hardening/issues/433)
+- Fix ssh kex sntrup761x25519-sha512@openssh.com for openssh \>= 8.5 [\#437](https://github.com/dev-sec/ansible-collection-hardening/pull/437) ([BenjaminBoehm](https://github.com/BenjaminBoehm))
+
+**Closed issues:**
+
+- Harden user home directories [\#276](https://github.com/dev-sec/ansible-collection-hardening/issues/276)
+
+**Merged pull requests:**
+
+-  remove secure-auth param if mysql \>= 8.0.3 [\#438](https://github.com/dev-sec/ansible-collection-hardening/pull/438) ([rndmh3ro](https://github.com/rndmh3ro))
+- Improved comments. [\#436](https://github.com/dev-sec/ansible-collection-hardening/pull/436) ([joubbi](https://github.com/joubbi))
+- os\_auth\_pam\_pwquality\_options: Changed type to authtok\_type [\#432](https://github.com/dev-sec/ansible-collection-hardening/pull/432) ([joubbi](https://github.com/joubbi))
+- add restart-auditd handler after configuration change [\#427](https://github.com/dev-sec/ansible-collection-hardening/pull/427) ([rndmh3ro](https://github.com/rndmh3ro))
+- add new tasks to delete mysql users without passwords [\#423](https://github.com/dev-sec/ansible-collection-hardening/pull/423) ([rndmh3ro](https://github.com/rndmh3ro))
+- Uppercased first letter of task names. [\#422](https://github.com/dev-sec/ansible-collection-hardening/pull/422) ([joubbi](https://github.com/joubbi))
+
+## [7.4.0](https://github.com/dev-sec/ansible-collection-hardening/tree/7.4.0) (2021-03-23)
+
+[Full Changelog](https://github.com/dev-sec/ansible-collection-hardening/compare/7.3.0...7.4.0)
+
+**Implemented enhancements:**
+
+- Harden user home dirs [\#428](https://github.com/dev-sec/ansible-collection-hardening/pull/428) ([rndmh3ro](https://github.com/rndmh3ro))
+
+**Closed issues:**
+
+- Errors in packer build for vagrant builder [\#244](https://github.com/dev-sec/ansible-collection-hardening/issues/244)
+
+**Merged pull requests:**
+
+- Use pam\_pwhistory.so instead of pam\_unix.so for remembering old passwords [\#431](https://github.com/dev-sec/ansible-collection-hardening/pull/431) ([joubbi](https://github.com/joubbi))
+- Remove comments from PAM config file, but keep it in the template [\#430](https://github.com/dev-sec/ansible-collection-hardening/pull/430) ([joubbi](https://github.com/joubbi))
+- add support for using a proxy to test with molecule [\#429](https://github.com/dev-sec/ansible-collection-hardening/pull/429) ([rndmh3ro](https://github.com/rndmh3ro))
 - Improve Documentation for sysctl defaults [\#418](https://github.com/dev-sec/ansible-collection-hardening/pull/418) ([joubbi](https://github.com/joubbi))
 
 ## [7.3.0](https://github.com/dev-sec/ansible-collection-hardening/tree/7.3.0) (2021-03-16)
