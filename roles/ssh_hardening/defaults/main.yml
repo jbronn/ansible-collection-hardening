@@ -1,6 +1,6 @@
 ---
 # true if IPv6 is needed
-network_ipv6_enable: false          # sshd + ssh
+network_ipv6_enable: true          # sshd + ssh
 
 # Paths of the config files
 ssh_client_config_file: /etc/ssh/ssh_config   # ssh
@@ -75,7 +75,7 @@ ssh_remote_hosts: []
 # Set this to "without-password" or "yes" to allow root to login
 ssh_permit_root_login: 'no'         # sshd
 
-# false to disable TCP Forwarding. Set to true to allow TCP Forwarding.
+# false to disable TCP Forwarding. Set to 'yes', 'no', 'local', 'all' or 'remote' to allow TCP Forwarding.
 ssh_allow_tcp_forwarding: 'no'      # sshd
 
 # false to disable binding forwarded ports to non-loopback addresses. Set to true to force binding on wildcard address.
@@ -191,7 +191,6 @@ ssh_server_accept_env_vars: ''
 # maximum number of concurrent unauthenticated connections to the SSH daemon
 ssh_max_startups: '10:30:60'       # sshd
 
-ssh_ps53: 'yes'
 ssh_ps59: 'sandbox'
 
 ssh_macs: []

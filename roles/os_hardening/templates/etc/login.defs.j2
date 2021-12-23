@@ -114,17 +114,27 @@ PASS_WARN_AGE     7
 
 # Min/max values for automatic uid selection in useradd
 UID_MIN           {{ os_auth_uid_min }}
-UID_MAX           60000
+UID_MAX           {{ os_auth_uid_max }}
 # System accounts
 SYS_UID_MIN       {{ os_auth_sys_uid_min }}
 SYS_UID_MAX       {{ os_auth_sys_uid_max }}
 
 # Min/max values for automatic gid selection in groupadd
 GID_MIN           {{ os_auth_gid_min }}
-GID_MAX           60000
+GID_MAX           {{ os_auth_gid_max }}
 # System accounts
 SYS_GID_MIN       {{ os_auth_sys_gid_min }}
 SYS_GID_MAX       {{ os_auth_sys_gid_max }}
+
+# If /etc/subuid exists, the commands useradd and newusers (unless the user already have subordinate user IDs)
+# allocate SUB_UID_COUNT unused user IDs from the range SUB_UID_MIN to SUB_UID_MAX for each new user.
+# The default values for SUB_UID_MIN, SUB_UID_MAX, SUB_UID_COUNT are respectively 100000, 600100000 and 65536.
+SUB_UID_MIN       {{ os_auth_sub_uid_min }}
+SUB_UID_MAX       {{ os_auth_sub_uid_max }}
+SUB_UID_COUNT     {{ os_auth_sub_uid_count }}
+SUB_GID_MIN       {{ os_auth_sub_gid_min }}
+SUB_GID_MAX       {{ os_auth_sub_gid_max }}
+SUB_GID_COUNT     {{ os_auth_sub_gid_count }}
 
 # Max number of login retries if password is bad. This will most likely be overriden by PAM, since the default pam_unix module has it's own built in of 3 retries. However, this is a safe fallback in case you are using an authentication module that does not enforce PAM_MAXTRIES.
 LOGIN_RETRIES     {{ os_auth_retries }}
@@ -170,11 +180,11 @@ MD5_CRYPT_ENAB    no
 ENCRYPT_METHOD    SHA512
 
 # Only used if `ENCRYPT_METHOD` is set to `SHA256` or `SHA512`: Define the number of SHA rounds.
-# With a lot of rounds, it is more difficult to brute forcing the password. But note also that it more CPU resources will be needed to authenticate users.
+# With a lot of rounds brute forcing the password is more difficult. But note also that it more CPU resources will be needed to authenticate users.
 # If not specified, the libc will choose the default number of rounds (5000). The values must be inside the 1000-999999999 range. If only one of the MIN or MAX values is set, then this value will be used.
 # If MIN > MAX, the highest value will be used.
-#SHA_CRYPT_MIN_ROUNDS    5000
-#SHA_CRYPT_MAX_ROUNDS    5000
+SHA_CRYPT_MIN_ROUNDS    {{ os_sha_crypt_min_rounds }}
+SHA_CRYPT_MAX_ROUNDS    {{ os_sha_crypt_max_rounds }}
 
 
 # Obsoleted by PAM

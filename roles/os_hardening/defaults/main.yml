@@ -3,6 +3,7 @@ os_desktop_enable: false
 os_env_extra_user_paths: []
 os_auth_pw_max_age: 60
 os_auth_pw_min_age: 7  # Discourage password cycling
+os_auth_pw_remember: 5  # Specify how many used passwords are record
 os_auth_retries: 5
 os_auth_lockout_time: 600  # Seconds (600 = 10min)
 os_auth_timeout: 60
@@ -58,12 +59,22 @@ ufw_default_application_policy: 'SKIP'
 ufw_manage_builtins: 'no'
 ufw_ipt_modules: 'nf_conntrack_ftp nf_nat_ftp nf_conntrack_netbios_ns'
 
+# Set to true to apply rules to support IPv6 (no means only IPv6 on loopback
+# accepted).
+ufw_enable_ipv6: true
+
 sysctl_config:
   # These settings eliminate an entire class of security vulnerabilities:
   # time-of-check-time-of-use cross-privilege attacks using guessable
   # filenames (generally seen as "/tmp file race" vulnerabilities).
   fs.protected_hardlinks: 1
   fs.protected_symlinks: 1
+  
+  # For more info on the following settings see: https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html
+  # Restrict FIFO special device creation behavior
+  fs.protected_fifos: 1
+  # Restrict regular files creation behavior
+  fs.protected_regular: 2
 
   # Prevent core dumps with SUID. These are usually only
   # needed by developers and may contain sensitive information. | sysctl-31
@@ -236,9 +247,6 @@ sysctl_config:
   net.ipv6.conf.default.accept_redirects: 0
   net.ipv6.conf.all.accept_redirects: 0
 
-  # Disable IPv6 | sysctl-18
-  net.ipv6.conf.all.disable_ipv6: 1
-
   # Ignore RAs on Ipv6. | sysctl-25
   net.ipv6.conf.all.accept_ra: 0
   net.ipv6.conf.default.accept_ra: 0
@@ -280,6 +288,14 @@ sysctl_config:
   vm.mmap_rnd_bits: 32
   vm.mmap_rnd_compat_bits: 16
 
+  # Disable unprivileged users from loading eBPF programs into the kernel.
+  # One of mitigations against CVE-2021-33909. | Tail-2
+  kernel.unprivileged_bpf_disabled: 1
+
+  # Reduce attack surface by disabling unprivileged user namespaces.
+  # Mitigates CVE-2021-33909 and other exploits.
+  kernel.unprivileged_userns_clone: 0
+
 # Do not delete the following line or otherwise the playbook will fail
 # at task 'create a combined sysctl-dict if overwrites are defined'
 sysctl_overwrite:
@@ -320,3 +336,60 @@ os_selinux_policy: targeted
 
 # Mount options for proc in /etc/fstab.
 proc_mnt_options: 'rw,nosuid,nodev,noexec,relatime,hidepid={{ hidepid_option }}'
+
+# Set to false to disable installing and configuring cron.
+os_cron_enabled: true
+
+# Set to true to disable ctrl-alt-del key combination.
+os_ctrlaltdel_disabled: false
+
+# Set to false to disable installing and configuring limits.
+os_limits_enabled: true
+
+# Set to false to disable installing and configuring login_defs.
+os_login_defs_enabled: true
+
+# Set to false to disable installing and configuring minimize_access.
+os_minimize_access_enabled: true
+
+# Set to false to disable installing and configuring pam.
+os_pam_enabled: true
+
+# Set to false to disable installing and configuring modprobe.
+os_modprobe_enabled: true
+
+# Set to false to disable installing and configuring profile.
+os_profile_enabled: true
+
+# Set to false to disable installing and configuring securetty.
+os_securetty_enabled: true
+
+# Set timeout in seconds for logout users automatically after time. Setting this to `0` disables the timeout.
+os_security_auto_logout: 0
+
+# Set to false to disable installing and configuring sysctl.
+os_sysctl_enabled: true
+
+# Set to false to disable installing and configuring user_accounts.
+os_user_accounts_enabled: true
+
+# Set to false to disable installing and configuring rhosts.
+os_rhosts_enabled: true
+
+# Set to false to disable installing and configuring yum.
+os_yum_enabled: true
+
+# List of yum repository files under /etc/yum.repos.d/ which should not be altered.
+os_yum_repo_file_whitelist: []
+
+# Set to false to disable installing and configuring apt.
+os_apt_enabled: true
+
+# Set to false to disable installing and configuring selinux.
+os_selinux_enabled: true
+
+# Define the number of SHA rounds.
+# With a lot of rounds brute forcing the password is more difficult. But note also that it more CPU resources will be needed to authenticate users.
+# The values must be inside the 1000-999999999 range.
+os_sha_crypt_min_rounds: "640000"
+os_sha_crypt_max_rounds: "640000"

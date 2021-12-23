@@ -15,8 +15,8 @@ Warning: This role disables root-login on the target server! Please make sure yo
 ## Role Variables
 
 - `network_ipv6_enable`
-  - Default: `false`
-  - Description: true if IPv6 is needed. `ssh_listen_to` must also be set to listen to IPv6 addresses (for example `[::]`).
+  - Default: `true`
+  - Description: false if IPv6 is not needed. `ssh_listen_to` must also be set to listen to IPv6 addresses (for example `[::]`).
 - `ssh_client_config_file`
   - Default: `'/etc/ssh/ssh_config'`
   - Description: path of the ssh client configuration file, e.g. `/etc/ssh/ssh_config.d/custom.conf`.
@@ -61,7 +61,7 @@ Warning: This role disables root-login on the target server! Please make sure yo
   - Description: Disable root-login. Set to `'without-password'` or `'yes'` to enable root-login - The quotes are required!
 - `ssh_allow_tcp_forwarding`
   - Default: `no`
-  - Description: `'no'` to disable TCP Forwarding. Set to `'yes'` to allow TCP Forwarding. If you are using OpenSSH >= 6.2 version, you can specify `'yes'`, `'no'`, `'all'` or `'local'`. <br> _Note_: values passed to this variable must be strings, thus values `'yes'` and `'no'` should be passed with quotes.
+  - Description: `'no'` to disable TCP Forwarding. Set to `'yes'` to allow TCP Forwarding. If you are using OpenSSH >= 6.2 version, you can specify `'yes'`, `'no'`, `'all'`, `'local'`or`'remote'`. <br> _Note_: values passed to this variable must be strings, thus values `'yes'`and`'no'` should be passed with quotes.
 - `ssh_gateway_ports`
   - Default: `false`
   - Description: `false` to disable binding forwarded ports to non-loopback addresses. Set to `true` to force binding on wildcard address. Set to `clientspecified` to allow the client to specify which address to bind to.
